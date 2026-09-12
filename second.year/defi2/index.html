@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque | Gestion des livres</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600&display=swap');
+
+        :root { --ink: #17231f; --muted: #68766e; --paper: #fffdf8; --cream: #f4f0e5; --green: #1f5c48; --yellow: #f5c85b; --line: #dce3d9; --red: #a84a3d; }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; color: var(--ink); background: var(--cream); font-family: 'DM Sans', sans-serif; }
+        header { padding: 1.5rem clamp(1.25rem, 5vw, 5rem); border-bottom: 1px solid var(--line); background: var(--paper); }
+        nav { display: flex; align-items: center; justify-content: space-between; max-width: 1180px; margin: auto; }
+        .logo { color: var(--green); font-size: .82rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+        .status { display: flex; align-items: center; gap: .5rem; color: var(--muted); font-size: .8rem; }
+        .status::before { content: ''; width: .5rem; height: .5rem; border-radius: 50%; background: #58a26e; }
+        main { display: grid; grid-template-columns: minmax(250px, .7fr) minmax(0, 1.3fr); gap: clamp(2rem, 6vw, 6rem); max-width: 1180px; margin: auto; padding: clamp(3rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem); }
+        h1, h2, h3 { margin: 0; font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: -.03em; }
+        h1 { max-width: 8ch; font-size: clamp(3.2rem, 6vw, 5.6rem); line-height: .95; }
+        .intro p { max-width: 25rem; margin: 1.5rem 0 0; color: var(--muted); line-height: 1.7; }
+        .form-panel { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+        h2 { font-size: 1.7rem; }
+        form { display: grid; gap: .8rem; margin-top: 1.25rem; }
+        label { color: var(--ink); font-size: .78rem; font-weight: 700; }
+        input { width: 100%; padding: .85rem .9rem; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: #fff; font: inherit; outline: none; }
+        input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(31, 92, 72, .12); }
+        .field { display: grid; gap: .35rem; }
+        .form-actions { display: flex; gap: .6rem; margin-top: .5rem; }
+        button { padding: .85rem 1rem; border: 0; border-radius: 4px; color: var(--paper); background: var(--green); font: inherit; font-weight: 700; cursor: pointer; }
+        button:hover { filter: brightness(.9); }
+        button.secondary { color: var(--green); background: transparent; border: 1px solid var(--line); }
+        .library-head { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+        .library-head p { margin: .4rem 0 0; color: var(--muted); font-size: .85rem; }
+        .search { max-width: 14rem; }
+        .book-list { display: grid; gap: .7rem; }
+        .book-row { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr) auto; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); }
+        .book-cover { display: grid; place-items: center; aspect-ratio: 1; color: var(--green); background: #e6eddf; font-family: 'Fraunces', Georgia, serif; font-size: 1.5rem; }
+        .book-info h3 { overflow: hidden; font-size: 1.15rem; text-overflow: ellipsis; white-space: nowrap; }
+        .book-info p { margin: .25rem 0 0; color: var(--muted); font-size: .82rem; }
+        .book-info span { margin: 0 .3rem; color: var(--yellow); }
+        .book-actions { display: flex; gap: .4rem; }
+        .icon-button { padding: .45rem .55rem; color: var(--green); background: transparent; font-size: .75rem; }
+        .icon-button.danger { color: var(--red); }
+        .empty-state { padding: 2rem; color: var(--muted); text-align: center; border: 1px dashed var(--line); }
+        @media (max-width: 760px) { main { grid-template-columns: 1fr; padding-top: 3rem; } .form-panel { margin-top: 2.5rem; } }
+        @media (max-width: 500px) { .library-head { align-items: stretch; flex-direction: column; } .search { max-width: none; } .book-row { grid-template-columns: 2.8rem minmax(0, 1fr); } .book-actions { grid-column: 2; } }
+    </style>
+</head>
+<body>
+    <header><nav><div class="logo">Bibliothèque</div><div class="status">Données enregistrées localement</div></nav></header>
+    <main>
+        <section class="intro" aria-labelledby="page-title">
+            <h1 id="page-title">Votre collection, en ordre.</h1>
+            <p>Ajoutez, recherchez et entretenez votre bibliothèque personnelle en quelques gestes.</p>
+            <div class="form-panel">
+                <h2 id="form-title">Ajouter un livre</h2>
+                <form id="book-form">
+                    <div class="field"><label for="title">Titre</label><input id="title" name="title" placeholder="Clean Code" required></div>
+                    <div class="field"><label for="author">Auteur</label><input id="author" name="author" placeholder="Robert Martin" required></div>
+                    <div class="field"><label for="year">Année de publication</label><input id="year" name="year" type="number" min="0" max="2100" placeholder="2008" required></div>
+                    <div class="form-actions"><button id="submit-book" type="submit">Ajouter le livre</button><button id="cancel-edit" class="secondary" type="button" hidden>Annuler</button></div>
+                </form>
+            </div>
+        </section>
+        <section class="library" aria-labelledby="library-title">
+            <div class="library-head"><div><h2 id="library-title">Tous les livres</h2><p id="book-count">0 livre</p></div><input class="search" id="search" type="search" placeholder="Rechercher..."></div>
+            <div id="book-list" class="book-list"></div>
+            <p id="empty-state" class="empty-state" hidden>Aucun livre ne correspond à votre recherche.</p>
+        </section>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>

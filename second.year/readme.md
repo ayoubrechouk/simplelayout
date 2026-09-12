@@ -1,1 +1,1 @@
-practicing git getting into it kinda drawing into this ocean
+git getting into it kinda drawing into this ocean
