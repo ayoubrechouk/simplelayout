@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome back | Good things ahead</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600&display=swap');
+
+        :root {
+            --ink: #1c2520;
+            --muted: #667269;
+            --cream: #f6f3ea;
+            --paper: #fffdf8;
+            --green: #1f5c48;
+            --green-dark: #174638;
+            --yellow: #f5c85b;
+            --line: #dfe4db;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--ink);
+            background: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(320px, 0.85fr) minmax(420px, 1.15fr);
+        }
+
+        .welcome {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: clamp(2rem, 6vw, 5rem);
+            color: var(--paper);
+            background: var(--green);
+        }
+
+        .welcome::before,
+        .welcome::after {
+            content: '';
+            position: absolute;
+            border: 1px solid rgba(255, 253, 248, 0.22);
+            border-radius: 50%;
+        }
+
+        .welcome::before {
+            right: -8rem;
+            bottom: -7rem;
+            width: 23rem;
+            height: 23rem;
+            box-shadow: 0 0 0 2rem rgba(255, 253, 248, 0.07), 0 0 0 4rem rgba(255, 253, 248, 0.04);
+        }
+
+        .welcome::after {
+            top: 12%;
+            left: -7rem;
+            width: 14rem;
+            height: 14rem;
+            opacity: 0.45;
+        }
+
+        .brand,
+        .welcome-content,
+        .footer-note { position: relative; z-index: 1; }
+
+        .brand {
+            color: var(--yellow);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .welcome-content { max-width: 29rem; margin: 4rem 0; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--yellow);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before { content: '\2726'; font-size: 1rem; }
+
+        h1,
+        h2 {
+            margin: 0;
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+        }
+
+        h1 { max-width: 9ch; font-size: clamp(3.3rem, 7vw, 6rem); line-height: 0.95; }
+
+        .welcome-copy {
+            max-width: 24rem;
+            margin: 2rem 0 0;
+            color: rgba(255, 253, 248, 0.76);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .footer-note { color: rgba(255, 253, 248, 0.68); font-size: 0.85rem; }
+
+        .login {
+            display: flex;
+            align-items: center;
+            padding: clamp(2rem, 7vw, 6rem);
+            background: var(--paper);
+        }
+
+        .form-wrap { width: min(100%, 31rem); margin: 0 auto; }
+        h2 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; }
+
+        .form-intro {
+            margin: 1rem 0 2.5rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        form { display: grid; gap: 1.1rem; }
+        .field { display: grid; gap: 0.5rem; }
+
+        label { color: var(--ink); font-size: 0.82rem; font-weight: 700; }
+
+        input {
+            width: 100%;
+            padding: 1rem 1.1rem;
+            border: 1px solid var(--line);
+            border-radius: 0.35rem;
+            color: var(--ink);
+            background: #fff;
+            font: inherit;
+            outline: none;
+            transition: border-color 160ms ease, box-shadow 160ms ease;
+        }
+
+        input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(31, 92, 72, 0.13);
+        }
+
+        .password-field { position: relative; }
+        .password-field input { padding-right: 4.5rem; }
+
+        input[type='file'] { padding: 0.8rem; background: var(--cream); }
+
+        .camera-note {
+            margin-top: -0.15rem;
+            color: var(--muted);
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 0.7rem;
+            bottom: 0.55rem;
+            padding: 0.45rem;
+            border: 0;
+            color: var(--green);
+            background: transparent;
+            font: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .toggle-password:focus-visible,
+        a:focus-visible,
+        button[type='submit']:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 0.1rem 0 0.5rem;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .remember { display: flex; align-items: center; gap: 0.55rem; font-weight: 400; }
+        .remember input { width: 1rem; height: 1rem; padding: 0; accent-color: var(--green); }
+        a { color: var(--green); font-weight: 700; }
+
+        .human-check { display: flex; align-items: center; gap: 0.65rem; color: var(--muted); font-size: 0.82rem; }
+        .human-check input { width: 1rem; height: 1rem; padding: 0; accent-color: var(--green); }
+        .human-check label { color: var(--muted); font-weight: 400; }
+
+        button[type='submit'] {
+            padding: 1.05rem 1.25rem;
+            border: 0;
+            border-radius: 0.35rem;
+            color: var(--paper);
+            background: var(--green);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        button[type='submit']:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+        .message {
+            display: none;
+            margin-top: 1rem;
+            padding: 0.9rem 1rem;
+            border-left: 3px solid var(--yellow);
+            color: var(--green-dark);
+            background: #fff7db;
+            font-size: 0.9rem;
+        }
+
+        .message.visible { display: block; }
+
+        .signup-link { margin-top: 1.5rem; color: var(--muted); font-size: 0.85rem; text-align: center; }
+
+        @media (max-width: 760px) {
+            .page { grid-template-columns: 1fr; }
+            .welcome { min-height: 58vh; }
+            .welcome-content { margin: 3rem 0; }
+            .login { min-height: 42vh; }
+        }
+
+        @media (max-width: 420px) {
+            .form-options { align-items: flex-start; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="welcome" aria-labelledby="welcome-title">
+            <div class="brand">Good things ahead</div>
+            <div class="welcome-content">
+                <div class="eyebrow">Join us</div>
+                <h1 id="welcome-title">Make room for something good.</h1>
+                <p class="welcome-copy">Create your account and keep your thoughtful notes, fresh ideas, and little moments of luck close.</p>
+            </div>
+            <div class="footer-note">Keep showing up for yourself.</div>
+        </section>
+
+        <section class="login" aria-labelledby="login-title">
+            <div class="form-wrap">
+                <h2 id="login-title">Create account.</h2>
+                <p class="form-intro">A few details, then you are ready to get started.</p>
+                <form id="login-form">
+                    <div class="field">
+                        <label for="name">Full name</label>
+                        <input id="name" name="name" type="text" autocomplete="name" placeholder="Alex Morgan" required>
+                    </div>
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input id="username" name="username" type="text" autocomplete="username" placeholder="alexmorgan" minlength="3" required>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email address</label>
+                        <input id="email" name="email" type="email" autocomplete="email" placeholder="alex@example.com" required>
+                    </div>
+                    <div class="field password-field">
+                        <label for="password">Password</label>
+                        <input id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" minlength="6" required>
+                        <button class="toggle-password" type="button" aria-controls="password" aria-label="Show password">Show</button>
+                    </div>
+                    <div class="field password-field">
+                        <label for="password-confirmation">Confirm password</label>
+                        <input id="password-confirmation" name="password-confirmation" type="password" autocomplete="new-password" placeholder="Repeat your password" minlength="6" required>
+                        <button class="toggle-password" type="button" aria-controls="password-confirmation" aria-label="Show password">Show</button>
+                    </div>
+                    <div class="field">
+                        <label for="profile-photo">Profile photo</label>
+                        <input id="profile-photo" name="profile-photo" type="file" accept="image/*">
+                        <span class="camera-note">Use your camera or choose an image from your device.</span>
+                    </div>
+                    <div class="human-check">
+                        <input id="human" name="human" type="checkbox" required>
+                        <label for="human">I confirm that I am a human.</label>
+                    </div>
+                    <button type="submit">Create my account <span aria-hidden="true">&#8594;</span></button>
+                </form>
+                <div class="message" id="login-message" role="status">Your account is ready. Welcome in.</div>
+                <p class="signup-link">Already have an account? <a href="git.html">Log in</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const loginForm = document.querySelector('#login-form');
+        const passwordInput = document.querySelector('#password');
+        const passwordConfirmation = document.querySelector('#password-confirmation');
+        const togglePasswords = document.querySelectorAll('.toggle-password');
+        const loginMessage = document.querySelector('#login-message');
+        document.querySelector('#profile-photo').setAttribute('capture', 'user');
+
+        togglePasswords.forEach((togglePassword) => {
+            togglePassword.addEventListener('click', () => {
+                const input = document.querySelector(`#${togglePassword.getAttribute('aria-controls')}`);
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                togglePassword.textContent = isPassword ? 'Hide' : 'Show';
+                togglePassword.setAttribute('aria-label', `${isPassword ? 'Hide' : 'Show'} password`);
+            });
+        });
+
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (passwordInput.value !== passwordConfirmation.value) {
+                passwordConfirmation.setCustomValidity('Passwords do not match.');
+                passwordConfirmation.reportValidity();
+                return;
+            }
+            passwordConfirmation.setCustomValidity('');
+            loginMessage.classList.add('visible');
+        });
+    </script>
+</body>
+</html>

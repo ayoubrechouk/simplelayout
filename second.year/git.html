@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Lucky Day</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600&display=swap');
+
+        :root {
+            --ink: #1c2520;
+            --muted: #667269;
+            --cream: #f6f3ea;
+            --paper: #fffdf8;
+            --green: #1f5c48;
+            --green-dark: #174638;
+            --yellow: #f5c85b;
+            --line: #dfe4db;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--ink);
+            background: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(320px, 0.9fr) minmax(420px, 1.1fr);
+        }
+
+        .welcome {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: clamp(2rem, 6vw, 5rem);
+            color: #fffdf8;
+            background: var(--green);
+        }
+
+        .welcome::after {
+            content: '';
+            position: absolute;
+            right: -7rem;
+            bottom: -8rem;
+            width: 21rem;
+            height: 21rem;
+            border: 1px solid rgba(255, 253, 248, 0.28);
+            border-radius: 50%;
+            box-shadow: 0 0 0 2rem rgba(255, 253, 248, 0.07), 0 0 0 4rem rgba(255, 253, 248, 0.04);
+        }
+
+        .brand {
+            position: relative;
+            z-index: 1;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+            max-width: 32rem;
+            margin: 4rem 0;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--yellow);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: '✦';
+            font-size: 1rem;
+        }
+
+        h1, h2 {
+            margin: 0;
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+        }
+
+        h1 {
+            max-width: 11ch;
+            font-size: clamp(3.4rem, 7vw, 6.2rem);
+            line-height: 0.95;
+        }
+
+        .welcome-copy {
+            max-width: 25rem;
+            margin: 2rem 0 0;
+            color: rgba(255, 253, 248, 0.76);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .date {
+            position: relative;
+            z-index: 1;
+            color: rgba(255, 253, 248, 0.7);
+            font-size: 0.85rem;
+        }
+
+        .signup {
+            display: flex;
+            align-items: center;
+            padding: clamp(2rem, 7vw, 6rem);
+            background: var(--paper);
+        }
+
+        .form-wrap {
+            width: min(100%, 31rem);
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            line-height: 1;
+        }
+
+        .form-intro {
+            margin: 1rem 0 2.5rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        form { display: grid; gap: 1.1rem; }
+
+        .field { display: grid; gap: 0.5rem; }
+
+        label {
+            color: var(--ink);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem 1.1rem;
+            border: 1px solid var(--line);
+            border-radius: 0.35rem;
+            color: var(--ink);
+            background: #fff;
+            font: inherit;
+            outline: none;
+            transition: border-color 160ms ease, box-shadow 160ms ease;
+        }
+
+        input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(31, 92, 72, 0.13);
+        }
+
+        .terms {
+            display: flex;
+            gap: 0.65rem;
+            align-items: flex-start;
+            margin: 0.3rem 0 0.5rem;
+            color: var(--muted);
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+        .terms input { width: 1rem; height: 1rem; margin-top: 0.15rem; accent-color: var(--green); }
+
+        button {
+            padding: 1.05rem 1.25rem;
+            border: 0;
+            border-radius: 0.35rem;
+            color: #fffdf8;
+            background: var(--green);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        button:hover { background: var(--green-dark); transform: translateY(-2px); }
+        button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+        .login-link {
+            margin-top: 1.5rem;
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .login-link a { color: var(--green); font-weight: 700; }
+
+        .success {
+            display: none;
+            margin-top: 1rem;
+            padding: 0.9rem 1rem;
+            border-left: 3px solid var(--yellow);
+            color: var(--green-dark);
+            background: #fff7db;
+            font-size: 0.9rem;
+        }
+
+        .success.visible { display: block; }
+
+        @media (max-width: 760px) {
+            .page { grid-template-columns: 1fr; }
+            .welcome { min-height: 58vh; }
+            .welcome-content { margin: 3rem 0; }
+            .signup { min-height: 42vh; }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="welcome" aria-labelledby="welcome-title">
+            <div class="brand">Good things ahead</div>
+            <div class="welcome-content">
+                <div class="eyebrow">A little reminder</div>
+                <h1 id="welcome-title">How are you doing today?</h1>
+                <p class="welcome-copy">Today is your lucky day. Make space for something good, and let’s take the next step together.</p>
+            </div>
+            <div class="date">Keep showing up for yourself.</div>
+        </section>
+
+        <section class="signup" aria-labelledby="signup-title">
+            <div class="form-wrap">
+                <h2 id="signup-title">Start something good.</h2>
+                <p class="form-intro">Sign up for thoughtful notes, fresh ideas, and a little extra luck in your inbox.</p>
+                <form id="signup-form">
+                    <div class="field">
+                        <label for="name">Your name</label>
+                        <input id="name" name="name" type="text" autocomplete="name" placeholder="Alex Morgan" required>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email address</label>
+                        <input id="email" name="email" type="email" autocomplete="email" placeholder="alex@example.com" required>
+                    </div>
+                    <label class="terms">
+                        <input type="checkbox" required>
+                        <span>I agree to receive occasional good news and updates.</span>
+                    </label>
+                    <button type="submit">Sign me up <span aria-hidden="true">→</span></button>
+                </form>
+                <div class="success" id="success-message" role="status">You’re on the list. Your lucky day starts here.</div>
+                <p class="login-link">Already a member? <a href="login.html">Sign in</a></p>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.querySelector('#signup-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            document.querySelector('#success-message').classList.add('visible');
+            event.target.reset();
+        });
+    </script>
+</body>
+</html>
