@@ -1,0 +1,19 @@
+{
+  "name": "defione",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@eslint/js": "^10.0.1",
+    "bootstrap": "^5.3.8",
+    "eslint": "^10.10.0"
+  }
+}

@@ -19,19 +19,82 @@ class User {
         this.id = id;
         this.name = name;
         this.borrowedBooks = [];
+        this.maxBooks = 3; // question 8
     }
 
-    // question 4
+    // question 4 & 8
     borrowBook(book) {
+        if (this.borrowedBooks.length >= this.maxBooks) {
+            console.log(`Limit reached: ${this.name} cannot borrow more than ${this.maxBooks} books.`);
+            return false;
+        }
         const isAlreadyBorrowed = this.borrowedBooks.some((item) => item.id === book.id);
         if (!isAlreadyBorrowed) {
             this.borrowedBooks.push(book);
+            return true;
         }
+        return false;
     }
 
     // question 5
     returnBook(bookId) {
         this.borrowedBooks = this.borrowedBooks.filter((book) => book.id !== bookId);
+    }
+}
+
+// question 6 & 7
+class PremiumUser extends User {
+    constructor(id, name) {
+        super(id, name);
+        this.maxBooks = 5; // question 8
+    }
+}
+
+// question 9
+class Library {
+    constructor() {
+        this.books = [];
+        this.users = [];
+    }
+
+    // question 10
+    addBook(book) {
+        this.books.push(book);
+    }
+
+    // question 11
+    findBookById(id) {
+        return this.books.find((book) => book.id === id);
+    }
+
+    // question 12
+    searchBooksByTitle(title) {
+        const query = title.trim().toLowerCase();
+        return this.books.filter((book) => book.title.toLowerCase().includes(query));
+    }
+
+    // question 13
+    addUser(user) {
+        this.users.push(user);
+    }
+
+    // question 14
+    borrowBook(userId, bookId) {
+        const user = this.users.find((u) => u.id === userId);
+        const book = this.findBookById(bookId);
+
+        if (user && book) {
+            return user.borrowBook(book);
+        }
+        return false;
+    }
+
+    // question 15
+    returnBook(userId, bookId) {
+        const user = this.users.find((u) => u.id === userId);
+        if (user) {
+            user.returnBook(bookId);
+        }
     }
 }
 
